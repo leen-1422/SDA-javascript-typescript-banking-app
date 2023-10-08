@@ -50,7 +50,7 @@ export class Branch{
 
 
 //Adds a transaction of the amount for the customer with the specified customerId.
-    addCustomerTransaction(customerId:number, amount:number):boolean{
+    addCustomerTransaction(customerId:string, amount:number):boolean{
         // const addAmount = this.customers.includes( 
         //     (newCustomer) => newCustomer.id === customerId.id);
         
@@ -64,16 +64,7 @@ export class Branch{
         // }
 
         const customer = this.customers.find((customer) => customer.id === customerId);
-        if(customer){
-            customer.addTransaction(amount);
-            return true;
-            
-            // customer.transactions.push(new Transaction(amount, new Date()));
-            // return true;
-        }else{
-            return false;
-        }  
-
+        return customer ? customer.addTransaction(amount) : false;
     }
 }
 

@@ -2,10 +2,10 @@ import { Transaction } from "./transactions";
 
 export class Customer{
     name: string;
-    id: number;
+    id: string;
     transactions: Transaction [];
 
-    constructor(name:string,id:number){
+    constructor(name:string,id:string){
         this.name=name;
         this.id=id;
         this.transactions= [];
@@ -14,32 +14,26 @@ export class Customer{
     getName():string{
         return this.name;
     }
-    getId():number{
+    getId():string{
         return this.id;
     }
+
     getTransactions():Transaction []{
        return this.transactions
 
     }
 
-    getBalance(): number{
+    getBalance(): number| string{
         const balance = this.transactions.reduce(
             (total,transaction ) => total +transaction.amount,0
            );
-        if (balance>0){
-            return balance;
-        }else {
-            return 0;
-        }
+        return balance>0 ? balance: "the value cant be negative"
+            
+        
     }
 
     addTransaction(amount:number): boolean{
-        if (this.transactions.push(new Transaction(amount, new Date()))){
-            return true;
-
-        }else{
-            return false;
-        }
+        return this.transactions.push(new Transaction(amount, new Date())) === 1;
         
     }
 }
